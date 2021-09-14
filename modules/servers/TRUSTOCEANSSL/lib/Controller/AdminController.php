@@ -382,12 +382,18 @@ class AdminController
         $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
         $returnvars['show_siteseal'] = $siteSeal->value === "hidden"?false:true;
 
+
         // 判断是否为通配符类型
         $is_wildcard = false;
-        $product_id = Capsule::table('tblhosting')->where('id', $localOrder->getServiceid())->value('packageid');
-        if ($product_id && Capsule::table('tblproducts')->where('id', $product_id)->value('configoption3') === 'on') {
-            $is_wildcard = true;
+        foreach ($returnvars['domains'] as $domain) {
+            if (strpos($domain, '*.') !== false) {
+                $is_wildcard = true;
+                unset($returnvars['csrhash']['http']);
+            }
         }
+
+//        echo json_encode($returnvars);
+//        exit;
 
         return array(
             'templatefile' => 'templates/cert_view',

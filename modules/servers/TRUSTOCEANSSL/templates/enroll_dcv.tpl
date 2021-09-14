@@ -114,6 +114,8 @@
                                         <br>{$MODLANG.trustoceanssl.enroll.setup3.table.dcv.point}: <p class="yate dcv-dnsinfo">{$vars.csrhash.dns.purevalue|strtolower}.{$vars.uniqueid|strtolower}.comodoca.com</p> <button type="button" class="btn btn-xs btn-info" data-clipbutton data-clipboard-text="{$vars.csrhash.dns.purevalue|strtolower}.{$vars.uniqueid|strtolower}.comodoca.com">{$MODLANG.trustoceanssl.enroll.setup3.table.dcv.copy}</button>
                                     </p>
                                 </td>
+
+                                {if !$is_wildcard }
                                 <td colspan="4" dcv-tab="http" {if $info.method neq 'http'}style="display: none;"{/if}>
                                     <p>{$MODLANG.trustoceanssl.enroll.setup3.table.dcv.download}: <span class="yate"><a href="javascript:;" onclick="dcvDownloadFile('{$vars.csrhash.http.firstline}\ncomodoca.com\n{$vars.uniqueid|strtolower}','{$vars.csrhash.http.filename}');">{$vars.csrhash.http.filename}</a></span>
                                         <br>{$MODLANG.trustoceanssl.enroll.setup3.table.dcv.upload}: http://{if $info.subdomain}{$info.subdomain}.{/if}{$info.topdomain}/.well-known/pki-validation/  {$MODLANG.trustoceanssl.enroll.setup3.table.dcv.folder}
@@ -134,6 +136,7 @@
                                         </span>
                                     </p>
                                 </td>
+                                {/if}
                             </tr>
                         {/foreach}
                         {literal}
